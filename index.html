@@ -30,11 +30,10 @@
 </head>
 
 <body class="text-center">
-  <script>
-  Swal.fire({
+  <script> Swal.fire({
   icon: 'success',
   title: 'Bem vindo ao site do Cleyton Sales',
-  text: 'Este é meu site pessoal contendo informações da minha vida profissional na area de tecnologia da informação.',
+  text: '',
   footer: '<a href="https://cjlconsultoria.com.br/">Procura pela CJL Consultoria?</a>'
 })
 </script>
@@ -261,7 +260,9 @@
   <div class="bg-light pt-2" id="udemy">
     <div class="container">
       <div class="row">
-        <div class="col-md-12"><img class="img-fluid d-block mx-auto" src="https://www.udemy.com/staticx/udemy/images/v6/logo-coral.svg"></div>
+        <div class="col-md-12"><img class="img-fluid d-block mx-auto" src="https://www.udemy.com/staticx/udemy/images/v6/logo-coral.svg" width="200">
+          <h3 class="">Cursos disponíveis da Udemy</h3>
+        </div>
       </div>
     </div>
   </div>
@@ -269,19 +270,35 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="">Cursos disponivéis na Udemy</h1>
+          <div class="row">
+            <div class="col-md-4">
+              <h1 class="">Java</h1><img class="img-fluid d-block mx-auto" src="https://ensinado.com.br/wp-content/uploads/2021/06/java_logo_640.jpg"><a class="btn btn-dark btn-block my-2" href="https://www.udemy.com/share/104qWO/">Acessar</a>
+            </div>
+            <div class="col-md-4">
+              <h1 class="">Android</h1><img class="img-fluid d-block mx-auto" src="http://s2.glbimg.com/VD9XgaIKvSsGQCXNttt1lZHHY9o=/695x0/s.glbimg.com/po/tt2/f/original/2015/09/28/android.jpg" width="193"><a class="btn btn-dark btn-block my-2" href="https://www.udemy.com/course/programarandroid/">Acessar</a>
+            </div>
+            <div class="col-md-4">
+              <h1 class="">Informática&nbsp;</h1><img class="img-fluid d-block mx-auto" src="https://www.proinformatica.com.br/wp-content/uploads/2018/10/HotSiteImage.jpg" width="257"><a class="btn btn-dark btn-block my-2" href="https://www.udemy.com/share/10484w/">Acessar</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="embed-responsive embed-responsive-16by9">
-            <iframe src="https://www.youtube.com/embed/9QxWuU-6KH0" allowfullscreen="" class="embed-responsive-item"></iframe>
-          </div><a class="btn btn-dark btn-block my-2" href="https://www.udemy.com/share/1032qMBkAdd1tWQXQ=/">Acessar</a>
         </div>
       </div>
     </div>
   </div>
-  <div class="py-5 bg-dark" id="entrevista">
+  <div class="py-5 text-white" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://www.udemy.com/staticx/udemy/images/v6/logo-coral.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
+    <div class="container">
+      <div class="row">
+        <div class="p-3 col-md-8 col-lg-6 ml-auto text-right text-white">
+          <h3 class="display-4 shadow-sm border mx-auto text-center text-capitalize">+1.700 Alunos&nbsp;<br><br></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5 bg-dark" id="entrevista" >
     <div class="container">
       <div class="row">
         <div class="col-md-6">
@@ -312,7 +329,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="my-3 col-md-6 col-lg-6 text-center" style="">
-          <h3>Contate-nos</h3>
+          <h3>Contate-me</h3>
           <form action="https://formspree.io/xrgyalzv" method="POST">
             <fieldset class="form-group my-3">
               <input type="email" class="form-control bg-dark" id="Input Email" placeholder="Email" name="Email"> </fieldset>
