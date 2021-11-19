@@ -1,0 +1,136 @@
+package docusign;
+import java.io.BufferedReader;
+import org.json.JSONArray;
+import org.json.*;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
+import org.apache.commons.codec.binary.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.web.client.RestTemplate;
+
+import com.docusign.esign.api.EnvelopesApi;
+import com.docusign.esign.api.UsersApi;
+import com.docusign.esign.client.ApiClient;
+import com.docusign.esign.client.ApiException;
+import com.docusign.esign.client.Configuration;
+import com.docusign.esign.client.auth.OAuth;
+import com.docusign.esign.model.*;
+import com.docusign.esign.client.auth.OAuth.UserInfo;
+import com.docusign.esign.model.EnvelopeDocumentsResult;
+import com.google.gson.JsonArray;
+import com.google.gson.stream.JsonReader;
+    public class CreateUser_Docusign {
+	
+	//Cleyton Sales
+    	
+    	String id;
+    	private final String USER_AGENT = "Mozilla/5.0";
+ 	
+    	public String createuser (String Matricula, String pnome, String sNome, String email, String accountid, int permprofileid, int groupid) throws IOException{
+    		//System.out.println("Conexão Docusign REST - Token");
+    		String accessToken = null; 
+    		String url = null;
+    		String BaseUrl = ApiClient.DEMO_REST_BASEPATH;
+    		//String BASECRE = ApiClient.DEMO_REST_BASEPATH + "/v2.1/accounts//users";
+    		String BASECRE = "https://api-d.docusign.net/management/v2/organizations//users";
+            String IntegratorKey = "";  
+            String UserId = "";
+            //String UserId = "";
+            String privateKey = "-----BEGIN RSA PRIVATE KEY-----\r\n" + 
+            		"MIIEpAIBAAKCAQEAn3ukZQWfXvBWLOv7Gmlq5FPCbtAzmbsix4LkgnAkdRIbJIne\r\n" + 
+            		"-----END RSA PRIVATE KEY-----\r\n";
+    		    	
+    		byte[] privateKeyBytes = privateKey.getBytes();	
+    		ApiClient apiClient = new ApiClient(BaseUrl);
+
+    		try {
+    			//System.out.println(privateKeyBytes);
+    	    	CreateUser_Docusign jwteste = new CreateUser_Docusign();
+
+
+    			java.util.List<String> scopes = new ArrayList<String>();
+    			scopes.add(OAuth.Scope_SIGNATURE);
+    			scopes.add("user_write");
+
+    			OAuth.OAuthToken oAuthToken = apiClient.requestJWTUserToken(IntegratorKey, UserId, scopes, privateKeyBytes, 3600);
+
+    			apiClient.setAccessToken(oAuthToken.getAccessToken(), oAuthToken.getExpiresIn());
+    			UserInfo userInfo = apiClient.getUserInfo(oAuthToken.getAccessToken());
+    			//System.out.println(oAuthToken.getAccessToken());
+    			//TESTE CREATE USER
+    			accessToken = oAuthToken.getAccessToken();
+    			url = BASECRE;
+    	    	//jwteste.createuser(oAuthToken.getAccessToken(), BASECRE);
+    	    	
+    			//jwteste.sendGet(oAuthToken.getAccessToken());
+    			//FINALIZACAO
+
+    		} catch (ApiException ex) {
+    			System.out.println("Exception: " + ex);
+    		} catch (Exception e) {
+    			System.out.println("Exception: " + e.getLocalizedMessage());
+    		}
+    		
+    		
+    		//String url = "https://demo.docusign.net/restapi/v2.1/accounts/";
+    		URL obj = new URL(url);
+    		HttpURLConnection con = (HttpURLConnection)obj.openConnection();
+    		con.setDoOutput(true);
+    		con.setRequestProperty("Authorization", "Bearer " + accessToken);
+    		//con.setRequestProperty("Authorization", "Bearer ");
+    		//add reuqest header
+    			con.setRequestProperty("Content-Type", "application/json");
+    		//	con.setRequestProperty("Host", "demo.docusign.net");
+    		//	con.setRequestProperty("Connection", "Keep-Alive");
+    		//	con.setRequestProperty("client-code", "ORACLE");
+    			con.setRequestMethod("POST");
+    		//	con.setRequestProperty("User-Agent", USER_AGENT);
+    		//	con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+    			
+    		 //Adiciona com perfil
+
+    			String urlParameters = "{\"user_name\": \""+Matricula+"\",\"first_name\": \""+pnome+"\",\"last_name\": \""+sNome+"\",\"email\": \""+email+"\",\"company\": \"MRS\",\"auto_activate_memberships\":" + true + ", \"accounts\": [{\"id\": \""+accountid+"\",\"permission_profile\": {\"id\": "+permprofileid+"},\"groups\": [{\"id\": "+groupid+"}]}]}";
+
+
+    			
+    			try(OutputStream os = con.getOutputStream()) {
+    		    byte[] input = urlParameters.getBytes("utf-8");
+    		    os.write(input, 0, input.length);			
+    		}
+
+    		String resposta;
+    		int responseCode = con.getResponseCode();
+    		//System.out.println("\nSending 'POST' request to URL : " + url);
+    		System.out.println("Post parameters : " + urlParameters);
+    		System.out.println("Response Code : " + responseCode);
+    		String mes;
+    		try(BufferedReader br = new BufferedReader(
+    				  new InputStreamReader(con.getInputStream(), "utf-8"))) {
+    				    StringBuilder response = new StringBuilder();
+    				    String responseLine = null;
+    				    while ((responseLine = br.readLine()) != null) {
+    				        response.append(responseLine.trim());
+    				    }
+    				    resposta = response.toString();
+    				    //Pegar retorno
+    				    mes = resposta.substring(7,43);
+    				    //System.out.println(mes);
+	  
+
+ 			   	}
+    		System.out.println("Completa: " + mes);
+			return mes;
+
+    	}
+
+    	}
