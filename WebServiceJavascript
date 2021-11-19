@@ -1,0 +1,38 @@
+//Cleyton Sales
+
+function z_atualiza_sistemaPar) {
+    //Example calling DSE internal function 
+    //uStop("Terminated by user");
+    uWarning("Iniciando atualização e/ou modificação de usuário no SIstema");
+    importPackage(Packages.Sistema);
+
+    var displayname = Par.get("DISPLAYNAME");
+    var mskeyvalue = Par.get("MSKEYVALUE");
+    var MX_FIRSTNAME = Par.get("MX_FIRSTNAME");
+    var MX_LASTNAME = Par.get("MX_LASTNAME");
+    var MX_PHONE_PRIMARY = Par.get("MX_PHONE_PRIMARY");
+    var MX_MAIL_PRIMARY = Par.get("MX_MAIL_PRIMARY");
+    var MX_DISABLED = Par.get("MX_DISABLED");
+
+    var result = "";
+
+    if (MX_DISABLED == null || MX_DISABLED == '' || MX_DISABLED == "" || MX_DISABLED == "0" || MX_DISABLED == "false" || MX_DISABLED == "FALSE") {
+        result = 0; // interpreted as Boolean-False	
+        MX_DISABLED = false;
+    } else {
+        // if a value exists: interpreted as Boolean-True
+        result = 1;
+        MX_DISABLED = true;
+    }
+
+    uWarning("False para bloqueio /n True para desbloqueio  " + MX_DISABLED);
+
+
+    uWarning("Já pegou os atributos no boolean");
+    var classe = new UpdateUser();
+    uWarning("instanciou");
+    var retorno = classe.UpdateUser("cleyton.sales@teste.com.hmlcq1", "senha", "ID", MX_FIRSTNAME, MX_LASTNAME, MX_MAIL_PRIMARY, MX_PHONE_PRIMARY, mskeyvalue, MX_DISABLED);
+    uWarning("Result:  " + retorno);
+
+    return result;
+}
